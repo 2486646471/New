@@ -39,4 +39,5 @@ class Solution
         root.right=buildTree(list,mid+1,end);
         return root;
     }
+    //
 }

@@ -1,0 +1,42 @@
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode(int x) { val = x; }
+ * }
+ */
+class Solution 
+{
+    public TreeNode balanceBST(TreeNode root) 
+    {
+        List<Integer>list=new LinkedList<>();
+        //中序遍历构造树的链表
+        listSort(list,root);
+        //将链表转换为树
+        return buildTree(list,0,list.size()-1);
+    }
+    //中序遍历
+    private void listSort(List<Integer>list,TreeNode root)
+    {
+        if(root==null) return ;
+        listSort(list,root.left);
+        list.add(root.val);
+        listSort(list,root.right);
+    }
+    //构造树
+    private TreeNode buildTree(List<Integer>list,int start,int end)
+    {
+        if(start>end)
+        {
+            return null;
+        }
+        TreeNode root=new TreeNode();
+        int mid=start+(end-start)/2;
+        root.val=list.get(mid);
+        root.left=buildTree(list,start,mid-1);
+        root.right=buildTree(list,mid+1,end);
+        return root;
+    }
+}
